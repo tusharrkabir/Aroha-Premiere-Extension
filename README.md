@@ -86,7 +86,7 @@ No more switching between browser tabs, converting media files, or dragging item
 
 For end users and editors:
 
-1. Go to the [**Releases**](https://github.com) section and download `Aroha_Premiere_Extension_Installer_v1.0.0.exe`.
+1. Go to the [**Releases**](https://github.com/tusharrkabir/Aroha-Premiere-Extension/releases) section and download `Aroha_Premiere_Extension_Installer_v1.0.0.exe`.
 2. Run the installer and click **Install**.
 3. Open **Adobe Premiere Pro**.
 4. In the top menu, go to:
@@ -108,8 +108,8 @@ If you want to clone, contribute, or build Aroha from source:
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/<your-username>/aroha-premiere-extension.git
-cd aroha-premiere-extension
+git clone https://github.com/tusharrkabir/Aroha-Premiere-Extension.git
+cd Aroha-Premiere-Extension
 ```
 
 ### 2. Download Bundled Binaries (yt-dlp & FFmpeg)
