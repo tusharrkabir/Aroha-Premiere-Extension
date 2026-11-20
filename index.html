@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aroha — Premiere Pro Downloader</title>
+  <link rel="icon" type="image/png" href="icons/aroha.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="panel">
+
+  <!-- Top Header Bar -->
+  <div class="header">
+    <div class="logo-group">
+      <div class="logo" id="logoTitle">
+        <img src="icons/aroha.png" alt="Aroha" class="logo-icon-img">
+        <span>Aroha</span>
+      </div>
+    </div>
+
+    <!-- Top Center Notification / Toast Pill -->
+    <div class="top-toast" id="toast"></div>
+
+    <div class="header-icons">
+      <button class="icon-btn" id="settingsBtn" title="Extension Diagnostics & Hardware Status" aria-label="Settings">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Auto-Update Launch Flash Bar (Option 2: 1-Click Flash Update) -->
+  <div class="update-flash-bar" id="updateFlashBar">
+    <div class="flash-info">
+      <span class="flash-icon">⚡</span>
+      <span class="flash-text" id="updateFlashText">Component update available!</span>
+    </div>
+    <div class="flash-actions">
+      <button class="flash-update-btn" id="updateFlashBtn">Update Now</button>
+      <button class="flash-dismiss-btn" id="updateFlashDismiss" title="Dismiss" aria-label="Dismiss">✕</button>
+    </div>
+  </div>
+
+  <!-- URL Input & Live Search Wrapper -->
+  <div class="url-search-wrapper">
+    <div class="url-field" id="urlFieldBox">
+      <!-- Default URL Icon -->
+      <svg class="url-icon" id="urlIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+      </svg>
+      
+      <!-- Direct Search/URL Text Input -->
+      <input id="urlInput" type="text" placeholder="Paste URL here or search YouTube…" autocomplete="off" spellcheck="false">
+
+      <!-- Embedded Selected Clip Badge (Saves Vertical Space) -->
+      <div class="selected-clip-badge" id="selectedClipBadge" title="Selected Video Clip">
+        <img class="clip-thumb" id="clipThumbImg" src="" alt="Thumbnail">
+        <div class="clip-info">
+          <div class="clip-title" id="clipTitleText">Video Title</div>
+          <div class="clip-meta" id="clipMetaText">Channel Name</div>
+        </div>
+      </div>
+      
+      <!-- Trim / Clip Button -->
+      <button class="icon-btn" id="trimBtn" title="Trim / Clip specific video section" aria-label="Trim Video">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/>
+          <line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/>
+        </svg>
+      </button>
+
+      <!-- Clear / Cross Button (to clear clip and section) -->
+      <button class="icon-btn" id="clearClipBtn" title="Clear selected clip" aria-label="Clear Selection">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+
+      <div class="divider" id="urlDivider"></div>
+
+      <!-- Paste Button -->
+      <button class="icon-btn" id="pasteBtn" title="Paste copied URL from clipboard" aria-label="Paste URL">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="8" y="2" width="8" height="4" rx="1"/>
+          <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Floating Live Search Dropdown Menu -->
+    <div class="search-results-menu" id="searchResultsMenu">
+      <!-- Dynamically filled with video cards -->
+    </div>
+  </div>
+
+  <!-- Trim / Clip Drawer -->
+  <div class="trim-drawer" id="trimDrawer">
+    <div class="trim-header">
+      <span>CLIP / TRIM SECTION</span>
+    </div>
+    <div class="trim-inputs-row">
+      <div class="trim-input-group">
+        <label for="trimStartInput">START TIME (IN)</label>
+        <input type="text" id="trimStartInput" placeholder="00:00:00" value="">
+      </div>
+      <div class="trim-input-group">
+        <label for="trimEndInput">END TIME (OUT)</label>
+        <input type="text" id="trimEndInput" placeholder="00:00:00" value="">
+      </div>
+    </div>
+    <div class="trim-presets">
+      <span style="font-size: 10px; color: var(--text-dim);">PRESETS:</span>
+      <div class="preset-chip" data-start="00:00:00" data-end="00:00:30">30s</div>
+      <div class="preset-chip" data-start="00:00:00" data-end="00:01:00">1m</div>
+      <div class="preset-chip" data-start="00:00:00" data-end="00:03:00">3m</div>
+      <div class="preset-chip" id="presetResetBtn">Full Video</div>
+    </div>
+  </div>
+
+  <!-- Video / Audio Mode Toggle -->
+  <div class="mode-toggle">
+    <button class="mode-btn active" data-mode="video" id="modeVideoBtn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/>
+      </svg>
+      Video
+    </button>
+    <button class="mode-btn" data-mode="audio" id="modeAudioBtn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+      </svg>
+      Audio
+    </button>
+  </div>
+
+  <!-- Quality Section -->
+  <div class="section-gap">
+    <div class="section-label">QUALITY <span class="dots">••••</span><span class="rule"></span></div>
+    <div class="dropdown-wrap">
+      <div class="field-row" id="qualityRow">
+        <div class="left">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="9"/>
+            <circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/>
+            <line x1="12" y1="2" x2="12" y2="5"/>
+            <line x1="12" y1="19" x2="12" y2="22"/>
+            <line x1="2" y1="12" x2="5" y2="12"/>
+            <line x1="19" y1="12" x2="22" y2="12"/>
+          </svg>
+          <span id="qualityLabel">Best available</span>
+        </div>
+        <div class="right" id="qualityChevron">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </div>
+      </div>
+      
+      <!-- Dynamic Quality Menu (Video: 8K, 4K, 2K, 1080p, etc. / Audio: 320k, WAV, etc.) -->
+      <div class="quality-menu" id="qualityMenu">
+        <!-- Injected via JavaScript based on active mode -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Download Location Section -->
+  <div class="section-gap location-section">
+    <div class="section-label">DOWNLOAD LOCATION <span class="dots">••••</span><span class="rule"></span></div>
+    <div class="field-row" id="locationRow" title="Click to choose custom download folder">
+      <div class="left">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+        </svg>
+        <span id="locationLabel" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 300px;">Downloads</span>
+      </div>
+      <div class="right" id="browseFolderBtn" title="Browse folder">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+        </svg>
+      </div>
+    </div>
+    <!-- Native OS Folder Picker Input -->
+    <input type="file" id="folderPickerInput" webkitdirectory directory style="display:none">
+  </div>
+
+  <!-- Screen 1: Primary Download Button with Fluid 3-Phase Progress Fill & Cancel Control -->
+  <div class="view-download-row" id="viewDownload">
+    <button class="download-btn" id="downloadBtn">
+      <div class="progress-fill" id="progressFill"></div>
+      <span class="btn-label">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        <span id="btnText">DOWNLOAD NOW</span>
+      </span>
+    </button>
+    <button class="cancel-download-btn" id="cancelDownloadBtn" title="Cancel download completely" aria-label="Cancel download">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+      <span>CANCEL</span>
+    </button>
+  </div>
+
+  <!-- Screen 2: Post-Download Dual Action Buttons -->
+  <div class="dual-actions" id="dualActions">
+    <div class="dual-buttons-row">
+      <!-- Left Primary: ADD TO TIMELINE -->
+      <button class="action-sub-btn" id="addToTimelineBtn" title="Insert media at current playhead in active sequence">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 6h16M4 12h16M4 18h10"/>
+          <line x1="19" y1="15" x2="19" y2="21"/>
+          <line x1="16" y1="18" x2="22" y2="18"/>
+        </svg>
+        <span>ADD TO TIMELINE</span>
+      </button>
+
+      <!-- Right Secondary: ADD TO PROJECT -->
+      <button class="action-sub-btn secondary" id="addToProjectBtn" title="Import media into active project bin">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+          <line x1="12" y1="11" x2="12" y2="17"/>
+          <line x1="9" y1="14" x2="15" y2="14"/>
+        </svg>
+        <span>ADD TO PROJECT</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Diagnostics & Engine Settings Modal -->
+  <div class="diag-modal-backdrop" id="diagModal">
+    <div class="diag-modal-card">
+      <div class="diag-header">
+        <div class="diag-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+          <span>AROHA ENGINE SETTINGS</span>
+        </div>
+        <button class="diag-close-btn" id="diagCloseBtn" aria-label="Close">✕</button>
+      </div>
+
+      <div class="diag-body">
+        <!-- Encoder Row with Select Dropdown -->
+        <div class="diag-row">
+          <div class="diag-row-header">
+            <span class="diag-label">ENCODER</span>
+            <span class="diag-sub-badge highlight" id="diagEncoderTypeBadge">NVIDIA NVENC</span>
+          </div>
+          <div class="diag-select-wrap">
+            <select class="diag-select" id="diagEncoderSelect">
+              <option value="h264_nvenc">⚡ NVIDIA NVENC (GPU Acceleration)</option>
+              <option value="libx264">CPU Software (x264 High Quality)</option>
+            </select>
+          </div>
+          <span class="diag-hint" id="diagHwDetails">Hardware Accelerated (CQP 19 / Preset P4)</span>
+        </div>
+
+        <!-- Stream Downloader Row with Version and Update Button -->
+        <div class="diag-row">
+          <span class="diag-label">STREAM DOWNLOADER</span>
+          <div class="diag-component-row">
+            <div class="diag-comp-info">
+              <span class="diag-comp-name">yt-dlp (Nightly)</span>
+              <span class="diag-version-badge" id="ytDlpVersionText">v2026.08.27</span>
+            </div>
+            <button class="diag-update-btn" id="updateYtDlpBtn" disabled title="yt-dlp is up to date">Update</button>
+          </div>
+        </div>
+
+        <!-- Media Transcoder Row with Version and Update Button -->
+        <div class="diag-row">
+          <span class="diag-label">MEDIA TRANSCODER</span>
+          <div class="diag-component-row">
+            <div class="diag-comp-info">
+              <span class="diag-comp-name">FFmpeg</span>
+              <span class="diag-version-badge" id="ffmpegVersionText">v9.0</span>
+            </div>
+            <button class="diag-update-btn" id="updateFfmpegBtn" disabled title="FFmpeg is up to date">Update</button>
+          </div>
+        </div>
+
+        <!-- Active Download Location -->
+        <div class="diag-row">
+          <span class="diag-label">ACTIVE DOWNLOAD DIR</span>
+          <span class="diag-value mono" id="diagDirValue">Downloads</span>
+        </div>
+      </div>
+
+      <div class="diag-footer">
+        <button class="diag-action-btn" id="diagRetestBtn">Check for Updates</button>
+        <button class="diag-action-btn primary" id="diagDoneBtn">Done</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CEP Libraries & Core Controllers -->
+<script src="CSInterface.js"></script>
+<script src="src/engine.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

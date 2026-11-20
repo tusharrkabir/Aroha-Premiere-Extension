@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionManifest Version="7.0" ExtensionBundleId="com.aroha.premiere.extension" ExtensionBundleVersion="1.0.0" ExtensionBundleName="Aroha" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ExtensionList>
+    <Extension Id="com.aroha.premiere.panel" Version="1.0.0"/>
+  </ExtensionList>
+  <ExecutionEnvironment>
+    <HostList>
+      <Host Name="PPRO" Version="[12.0,99.9]"/>
+    </HostList>
+    <LocaleList>
+      <Locale Code="All"/>
+    </LocaleList>
+    <RequiredRuntimeList>
+      <RequiredRuntime Name="CSXS" Version="7.0"/>
+    </RequiredRuntimeList>
+  </ExecutionEnvironment>
+  <DispatchInfoList>
+    <Extension Id="com.aroha.premiere.panel">
+      <DispatchInfo>
+        <Resources>
+          <MainPath>./index.html</MainPath>
+          <ScriptPath>./jsx/host.jsx</ScriptPath>
+          <CEFCommandLine>
+            <Parameter>--allow-file-access</Parameter>
+            <Parameter>--allow-file-access-from-files</Parameter>
+            <Parameter>--allow-running-insecure-content</Parameter>
+            <Parameter>--enable-nodejs</Parameter>
+            <Parameter>--mixed-context</Parameter>
+          </CEFCommandLine>
+        </Resources>
+        <Lifecycle>
+          <AutoVisible>true</AutoVisible>
+        </Lifecycle>
+        <UI>
+          <Type>Panel</Type>
+          <Menu>Aroha</Menu>
+          <Geometry>
+            <Size>
+              <Height>390</Height>
+              <Width>325</Width>
+            </Size>
+            <MinSize>
+              <Height>350</Height>
+              <Width>280</Width>
+            </MinSize>
+            <Icons>
+              <Icon Type="Normal">./icons/icon_24.png</Icon>
+              <Icon Type="RollOver">./icons/icon_24.png</Icon>
+              <Icon Type="Disabled">./icons/icon_24.png</Icon>
+              <Icon Type="DarkNormal">./icons/icon_24.png</Icon>
+              <Icon Type="DarkRollOver">./icons/icon_24.png</Icon>
+            </Icons>
+          </Geometry>
+        </UI>
+      </DispatchInfo>
+    </Extension>
+  </DispatchInfoList>
+</ExtensionManifest>

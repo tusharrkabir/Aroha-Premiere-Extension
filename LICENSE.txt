@@ -1,0 +1,41 @@
+================================================================================
+                    AROHA FOR ADOBE PREMIERE PRO
+              INDIE DEVELOPER SOFTWARE LICENSE AGREEMENT
+================================================================================
+
+Version 1.0.0 — 2026
+Copyright (c) 2026 Aroha Media Tools. All rights reserved.
+
+IMPORTANT: PLEASE READ THE TERMS AND CONDITIONS OF THIS SOFTWARE LICENSE 
+AGREEMENT CAREFULLY BEFORE CONTINUING WITH THIS INSTALLATION.
+
+1. GRANT OF LICENSE
+Aroha Media Tools grants you a personal, non-exclusive, royalty-free, perpetual 
+license to install, activate, and use Aroha for Adobe Premiere Pro on any computer 
+or workstation owned or controlled by you.
+
+2. COMMERCIAL & NON-COMMERCIAL USE
+You are fully permitted to use Aroha for commercial video editing, YouTube content 
+creation, film production, broadcast editing, personal projects, and education 
+without any additional licensing fees.
+
+3. PRIVACY & LOCAL PROCESSING GUARANTEE
+Aroha operates 100% locally on your machine. No video stream data, user media, 
+timelines, search queries, or downloaded content are transmitted to third-party 
+servers. All media processing and hardware transcoding take place on your local 
+GPU/CPU.
+
+4. DEPENDENCIES & THIRD-PARTY TOOLS
+This extension integrates open-source media utilities (yt-dlp, FFmpeg) under their 
+respective open-source licenses (Unlicense / GPL / LGPL). You may update or replace 
+these dependencies at any time using the built-in Diagnostics & Update system.
+
+5. DISCLAIMER OF WARRANTIES
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS 
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR 
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY.
+
+================================================================================
+                    Aroha — High Performance Media Tool
+================================================================================
